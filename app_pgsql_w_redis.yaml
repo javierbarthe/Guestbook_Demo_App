@@ -23,15 +23,15 @@ env_variables:
   DB_NAME: postgres
   DB_TECH: Cloud SQL for PostgreSQL w/ Redis
   DSNDB: pgsql
-  REDIS_HOST: '10.1.18.3'
-  REDIS_PORT: '6379'
+  REDIS_HOST: 'ip'
+  REDIS_PORT: 'port'
 # Defaults to "serve index.php" and "serve public/index.php". Can be used to
 # serve a custom PHP front controller (e.g. "serve backend/index.php") or to
 # run a long-running PHP script as a worker process (e.g. "php worker.php").
 #
 # entrypoint: serve index.php
 vpc_access_connector:
-  name: 'projects/my-first-project-424319/locations/us-central1/connectors/serverlessvpc'
+  name: 'serverlessvpc'
 
 network:
   name: default
