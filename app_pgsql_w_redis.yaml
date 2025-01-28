@@ -1,0 +1,44 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+runtime: php82
+
+# Remember - storing secrets in plaintext is potentially unsafe. Consider using
+# something like https://cloud.google.com/secret-manager/ to help keep secrets secret.
+env_variables:
+  INSTANCE_UNIX_SOCKET: /cloudsql/projectid:region:instancename
+  DB_USER: appengine
+  DB_PASS: password
+  DB_NAME: postgres
+  DB_TECH: Cloud SQL for PostgreSQL w/ Redis
+  DSNDB: pgsql
+  REDIS_HOST: '10.1.18.3'
+  REDIS_PORT: '6379'
+# Defaults to "serve index.php" and "serve public/index.php". Can be used to
+# serve a custom PHP front controller (e.g. "serve backend/index.php") or to
+# run a long-running PHP script as a worker process (e.g. "php worker.php").
+#
+# entrypoint: serve index.php
+vpc_access_connector:
+  name: 'projects/my-first-project-424319/locations/us-central1/connectors/serverlessvpc'
+
+network:
+  name: default
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /.*
+  script: index.php
